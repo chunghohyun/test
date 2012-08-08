@@ -1,0 +1,55 @@
+<html>
+	<head>
+	<title>particles</title>
+		<style type ="text/css">
+		canvas { background-color: white; }
+		html * { padding: 0px; margin: 0px;}
+		</style>
+		<script type ="text/javascript" >
+			var blobArray = [];
+			setInterval(draw, 50);
+			
+			function draw() {
+			
+				var blob = {x : window.innerWidth/2,
+								  y :window.innerHeight/2,
+								  sizeWidth : randomRange(0, 30),
+								  sizeHeight : randomRange(0, 30),
+								  r : randomRange(0, 255),
+								  g : randomRange(0, 255),
+								  b : randomRange(0, 255),
+								  a : Math.random().toFixed(2),
+								  xSpeed : randomRange(-25,25),
+								  ySpeed : randomRange(-25,25) };
+				
+				blobArray.push(blob);
+				
+				var canvas = document.getElementById('particles');
+				if (canvas.getContext) {
+					var c = canvas.getContext('2d');
+					canvas.width = window.innerWidth;
+					canvas.height = window.innerHeight;
+					
+					for (var i = 0; i < blobArray.length; i++) {
+						
+						blob = blobArray[i];
+						
+						//c.fillStyle = 'rgb(100, 255, 255)';
+						
+						c.fillStyle = 'rgb(' + blob.r + ', ' + blob.g + ', ' + blob.b + ')';
+						c.fillRect(blob.x, blob.y, blob.sizeWidth, blob.sizeHeight);
+						
+						blob.x = blob.x + blob.xSpeed;
+						blob.y = blob.y + blob.ySpeed;
+					}
+				}
+			}
+			function randomRange(m,n) {
+				return ( Math.floor ( Math.random ( )*0.9999999999999999* (n - m + 1) + m) );
+				}
+		</script>
+	</head>
+	<body>
+		<canvas id="particles"></canvas>
+	</body>
+</html>
